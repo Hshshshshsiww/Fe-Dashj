@@ -1,0 +1,44 @@
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+game:GetService("StarterGui"):SetCore("SendNotification",{
+Title = "🗒️Script  Fe Dash🗒️",
+Text = "create by giang_lao889", 
+Duration = 3
+})
+local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+
+local PhantomForcesWindow = Library:NewWindow("Fe Dash")
+
+local KillingCheats = PhantomForcesWindow:NewSection("Fe Dash")
+
+-- Tạo Toggle cho FE Dash
+KillingCheats:CreateToggle("Fe Dash", function(value)
+    autoRunning = value  -- Cập nhật trạng thái toggle FE Dash
+
+    if autoRunning then
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+        -- Hàm Dash
+        local function dash()
+            while autoRunning do
+                humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.new(0, 0, -5)  -- Di chuyển nhanh về phía trước
+                wait(0.1)  -- Chờ giữa các lần di chuyển để tránh bị lag
+            end
+        end
+
+        -- Chạy hàm Dash trong một coroutine để không làm gián đoạn các chức năng khác
+        coroutine.wrap(dash)()
+    else
+        print("FE Dash turned off.")
+    end
+
+    print("FE Dash toggle state: " .. tostring(value))
+end)
+
+-- Tạo Button với tên "giang_lao889"
+KillingCheats:CreateButton("giang_lao889", function()
+    print("HI")  -- Khi nhấn vào nút sẽ in ra "HI"
+end)
